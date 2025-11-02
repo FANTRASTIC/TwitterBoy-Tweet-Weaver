@@ -3,23 +3,19 @@
 import type { Article } from '@/lib/data';
 import NewsAPI from 'newsapi';
 
-// Simulate network delay
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
 export async function fetchNews(
   topic: string,
   maxResults: number
 ): Promise<Article[]> {
-  await sleep(1000); // Simulate API call latency
-
-  if (!process.env.NEWS_API_KEY) {
+  if (!process.env.NEXT_PUBLIC_NEWS_API_KEY) {
     console.error('NewsAPI key is not configured.');
+    // Return a user-facing error message or an empty array
     return [];
   }
 
   // Initialize newsapi client inside the function
   // to ensure the API key is available.
-  const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
+  const newsapi = new NewsAPI(process.env.NEXT_PUBLIC_NEWS_API_KEY);
 
   try {
     const response = await newsapi.v2.everything({
