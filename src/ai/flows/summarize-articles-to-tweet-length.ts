@@ -16,6 +16,7 @@ const SummarizeArticleToTweetInputSchema = z.object({
   articleDescription: z.string().describe('The description of the news article.'),
   articleUrl: z.string().url().describe('The URL of the original news article.'),
   topic: z.string().describe('The topic of the news article.'),
+  maxLength: z.number().optional().describe('The maximum character length of the tweet.'),
 });
 export type SummarizeArticleToTweetInput = z.infer<typeof SummarizeArticleToTweetInputSchema>;
 
@@ -24,7 +25,7 @@ const SummarizeArticleToTweetOutputSchema = z.object({
 });
 export type SummarizeArticleToTweetOutput = z.infer<typeof SummarizeArticleToTweetOutputSchema>;
 
-const MAX_TWEET_LENGTH = 280;
+const DEFAULT_TWEET_LENGTH = 280;
 
 export async function summarizeArticleToTweet(input: SummarizeArticleToTweetInput): Promise<SummarizeArticleToTweetOutput> {
   return summarizeArticleToTweetFlow(input);
@@ -34,7 +35,7 @@ const summarizeArticleToTweetPrompt = ai.definePrompt({
   name: 'summarizeArticleToTweetPrompt',
   input: {schema: SummarizeArticleToTweetInputSchema},
   output: {schema: SummarizeArticleToTweetOutputSchema},
-  prompt: `Summarize the following news article into a tweet (\u2264${MAX_TWEET_LENGTH} characters). Include a short summary, a hashtag based on the topic, and a link to the original source.\n\nTitle: {{{articleTitle}}}\nDescription: {{{articleDescription}}}\nURL: {{{articleUrl}}}\nTopic: {{{topic}}}\n\nTweet:`,
+  prompt: `Summarize the following news article into a tweet (up to {{{maxLength}}} characters). Include a short summary, a hashtag based on the topic, and a link to the original source.\n\nTitle: {{{articleTitle}}}\nDescription: {{{articleDescription}}}\nURL: {{{articleUrl}}}\nTopic: {{{topic}}}\n\nTweet:`,
 });
 
 const summarizeArticleToTweetFlow = ai.defineFlow(
@@ -44,11 +45,12 @@ const summarizeArticleToTweetFlow = ai.defineFlow(
     outputSchema: SummarizeArticleToTweetOutputSchema,
   },
   async input => {
-    let {output} = await summarizeArticleToTweetPrompt(input);
+    const maxLength = input.maxLength || DEFAULT_TWEET_LENGTH;
+    let {output} = await summarizeArticleToTweetPrompt({...input, maxLength});
 
     // Enforce tweet length limit
-    if (output!.tweet.length > MAX_TWEET_LENGTH) {
-      output!.tweet = output!.tweet.substring(0, MAX_TWEET_LENGTH);
+    if (output!.tweet.length > maxLength) {
+      output!.tweet = output!.tweet.substring(0, maxLength);
     }
 
     return output!;

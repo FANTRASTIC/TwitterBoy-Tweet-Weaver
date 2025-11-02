@@ -52,6 +52,7 @@ import {
 import Image from 'next/image';
 import { useState } from 'react';
 import { TweetCard } from '@/components/tweet-card';
+import { Slider } from '@/components/ui/slider';
 
 type Tone = 'Neutral' | 'Breaking' | 'Casual';
 type Tweet = {
@@ -64,10 +65,13 @@ type Tweet = {
   articleTitle: string;
 };
 
+const DEFAULT_TWEET_LENGTH = 280;
+
 export default function Home() {
   const [topic, setTopic] = useState<string>('AI');
   const [maxResults, setMaxResults] = useState<number>(3);
   const [tone, setTone] = useState<Tone>('Neutral');
+  const [tweetLength, setTweetLength] = useState<number>(DEFAULT_TWEET_LENGTH);
   const [articles, setArticles] = useState<Article[]>([]);
   const [tweets, setTweets] = useState<Tweet[]>([]);
   const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
@@ -109,6 +113,7 @@ export default function Home() {
         articleDescription: article.description,
         articleUrl: article.url,
         topic: article.topic,
+        maxLength: tweetLength,
       });
       const newTweet: Tweet = {
         id: `tweet-${Date.now()}`,
@@ -238,6 +243,20 @@ export default function Home() {
                   <SelectItem value="Casual">Casual</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <Label htmlFor="tweet-length">Max Tweet Length</Label>
+                <span className="text-sm text-muted-foreground">{tweetLength} chars</span>
+              </div>
+              <Slider
+                id="tweet-length"
+                min={50}
+                max={280}
+                step={10}
+                value={[tweetLength]}
+                onValueChange={vals => setTweetLength(vals[0])}
+              />
             </div>
             <Button type="submit" className="w-full" disabled={isFetchingNews}>
               {isFetchingNews ? (
