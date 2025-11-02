@@ -72,10 +72,9 @@ export const getArticles = (topic?: string, maxResults: number = 5): Article[] =
     if (!topic || topic.trim() === '') {
         return allArticles.slice(0, maxResults);
     }
-    const searchTopics = topic.toLowerCase().split(/\s+/);
-    const filtered = allArticles.filter(article => {
-        const articleTopics = article.topic.toLowerCase().split(/\s+/);
-        return searchTopics.some(st => articleTopics.includes(st));
-    });
+    const lowercasedTopic = topic.toLowerCase();
+    const filtered = allArticles.filter(article => 
+        article.topic.toLowerCase().includes(lowercasedTopic)
+    );
     return filtered.slice(0, maxResults);
 }
