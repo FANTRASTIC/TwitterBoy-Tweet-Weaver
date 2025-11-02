@@ -1,3 +1,4 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -10,24 +11,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**',
-      },
+      { protocol: 'https', hostname: 'picsum.photos' },
       // NewsAPI common domains
       { protocol: 'https', hostname: 'media.wired.com' },
       { protocol: 'https', hostname: 'static01.nyt.com' },
@@ -39,7 +23,9 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 's.yimg.com' },
       { protocol: 'https', hostname: 'techcrunch.com' },
       { protocol: 'https', hostname: '*.google.com' },
-
+      { protocol: 'https', hostname: 'cdn.theverge.net' },
+      { protocol: 'https', hostname: 'platform.theverge.com' },
+      { protocol: 'https', hostname: 'img.etimg.com' },
     ],
   },
 };

@@ -350,17 +350,17 @@ export default function Home() {
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        {article.image && (
+                        {article.image?.imageUrl ? (
                           <div className="relative aspect-video w-full mb-4 overflow-hidden rounded-lg">
                             <Image
                               src={article.image.imageUrl}
-                              alt={article.image.description}
+                              alt={article.image.description || article.title || 'Article image'}
                               fill
                               className="object-cover"
                               data-ai-hint={article.image.imageHint}
                             />
                           </div>
-                        )}
+                        ) : null}
                         <p className="text-muted-foreground">
                           {article.description}
                         </p>
