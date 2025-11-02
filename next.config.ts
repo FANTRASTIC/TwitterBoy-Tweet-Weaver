@@ -28,6 +28,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'img.etimg.com' },
       { protocol: 'https', hostname: 'gizmodo.com' },
       { protocol: 'https', hostname: 'media.zenfs.com' },
+      { protocol: 'https', hostname: 'hackaday.com' },
     ],
   },
 };
