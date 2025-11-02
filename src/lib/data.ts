@@ -11,6 +11,8 @@ export type Article = {
   topic: string;
 };
 
+// This is now just a fallback/example data structure.
+// The live data comes from `src/app/actions.ts`.
 const allArticles: Article[] = [
   {
     id: '1',
@@ -68,6 +70,7 @@ const allArticles: Article[] = [
   }
 ];
 
+// This function is no longer used for fetching but can be kept for reference or local testing.
 export const getArticles = (topic?: string, maxResults: number = 5): Article[] => {
     if (!topic || topic.trim() === '') {
         return allArticles.slice(0, maxResults);
