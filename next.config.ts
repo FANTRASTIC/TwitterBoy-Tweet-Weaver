@@ -12,7 +12,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'picsum.photos' },
-      // NewsAPI common domains
+      // Whitelisting is no longer the primary strategy, 
+      // but keeping these here doesn't hurt.
       { protocol: 'https', hostname: 'media.wired.com' },
       { protocol: 'https', hostname: 'static01.nyt.com' },
       { protocol: 'https', hostname: 'i.guim.co.uk' },

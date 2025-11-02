@@ -52,6 +52,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { TweetCard } from '@/components/tweet-card';
 import { Slider } from '@/components/ui/slider';
+import SafeImage from '@/components/SafeImage';
 
 type Tone = 'Neutral' | 'Breaking' | 'Casual';
 type Tweet = {
@@ -352,7 +353,7 @@ export default function Home() {
                       <CardContent>
                         {article.image?.imageUrl ? (
                           <div className="relative aspect-video w-full mb-4 overflow-hidden rounded-lg">
-                            <Image
+                            <SafeImage
                               src={article.image.imageUrl}
                               alt={article.image.description || article.title || 'Article image'}
                               fill
