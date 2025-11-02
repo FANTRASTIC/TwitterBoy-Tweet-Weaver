@@ -38,7 +38,6 @@ import { rewriteTweet } from '@/ai/flows/rewrite-tweets-with-gen-ai';
 import { summarizeArticleToTweet } from '@/ai/flows/summarize-articles-to-tweet-length';
 import { AppLogo } from '@/components/app-logo';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { fetchNews } from '@/app/actions';
 import type { Article } from '@/lib/data';
 import {
   Copy,
@@ -65,6 +64,15 @@ type Tweet = {
   articleTitle: string;
 };
 
+// The raw article type from NewsAPI
+type NewsAPIArticle = {
+  title: string;
+  url: string;
+  description: string;
+  source?: { name?: string };
+  urlToImage?: string;
+};
+
 const DEFAULT_TWEET_LENGTH = 280;
 
 export default function Home() {
@@ -84,21 +92,61 @@ export default function Home() {
     e.preventDefault();
     setIsFetchingNews(true);
     setArticles([]);
+
     try {
-      const fetchedArticles = await fetchNews(topic, maxResults);
-      setArticles(fetchedArticles);
-      if (fetchedArticles.length === 0) {
+      // Securely fetch news from our own API route
+      const res = await fetch(
+        `/api/news?topic=${encodeURIComponent(topic)}&max=${maxResults}`
+      );
+
+      if (!res.ok) {
+        const { error } = await res.json();
+        throw new Error(error || 'Failed to fetch news');
+      }
+
+      const { articles: rawArticles } = await res.json();
+
+      if (!rawArticles || rawArticles.length === 0) {
         toast({
           title: 'No articles found',
           description: `Couldn't find any recent articles for the topic "${topic}".`,
         });
+        setArticles([]);
+        return;
       }
+      
+      const fetchedArticles: Article[] = rawArticles
+        .map((article: NewsAPIArticle, index: number) => {
+           if (!article.title || !article.description || !article.url) {
+            return null;
+          }
+          return {
+            id: `${topic}-${index}-${Date.now()}`,
+            title: article.title,
+            description: article.description,
+            url: article.url,
+            sourceName: article.source?.name || 'Unknown Source',
+            image: {
+              id: `news-image-${index}`,
+              imageUrl:
+                article.urlToImage ||
+                `https://picsum.photos/seed/${index + 1}/600/400`,
+              description: article.title,
+              imageHint: topic.split(' ')[0] || 'news',
+            },
+            topic: topic,
+          };
+        })
+        .filter((article: Article | null): article is Article => article !== null);
+
+      setArticles(fetchedArticles);
+
     } catch (error) {
       console.error('Failed to fetch news:', error);
       toast({
         variant: 'destructive',
         title: 'Error fetching news',
-        description: 'Something went wrong. Please try again later.',
+        description: (error as Error).message || 'Something went wrong. Please try again later.',
       });
     } finally {
       setIsFetchingNews(false);
@@ -220,7 +268,7 @@ export default function Home() {
                   <SelectValue placeholder="Select number of articles" />
                 </SelectTrigger>
                 <SelectContent>
-                  {[1, 2, 3, 4, 5].map(num => (
+                  {[1, 2, 3, 4, 5, 10, 20].map(num => (
                     <SelectItem key={num} value={String(num)}>
                       {num}
                     </SelectItem>
