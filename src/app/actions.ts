@@ -6,8 +6,6 @@ import NewsAPI from 'newsapi';
 // Simulate network delay
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-const newsapi = new NewsAPI(process.env.NEWS_API_KEY!);
-
 export async function fetchNews(
   topic: string,
   maxResults: number
@@ -18,6 +16,10 @@ export async function fetchNews(
     console.error('NewsAPI key is not configured.');
     return [];
   }
+
+  // Initialize newsapi client inside the function
+  // to ensure the API key is available.
+  const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
 
   try {
     const response = await newsapi.v2.everything({
