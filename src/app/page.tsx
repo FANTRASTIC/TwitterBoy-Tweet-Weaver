@@ -48,7 +48,6 @@ import {
   Newspaper,
   Wand2,
 } from 'lucide-react';
-import Image from 'next/image';
 import { useState } from 'react';
 import { TweetCard } from '@/components/tweet-card';
 import { Slider } from '@/components/ui/slider';
