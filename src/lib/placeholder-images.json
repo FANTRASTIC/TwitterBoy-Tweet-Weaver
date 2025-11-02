@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "news-1",
+      "description": "Abstract technology background",
+      "imageUrl": "https://images.unsplash.com/photo-1689443111130-6e9c7dfd8f9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx0ZWNobm9sb2d5JTIwYWJzdHJhY3R8ZW58MHx8fHwxNzYyMDkwNzkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "technology abstract"
+    },
+    {
+      "id": "news-2",
+      "description": "An AI robot looking at a screen",
+      "imageUrl": "https://images.unsplash.com/photo-1673255745677-e36f618550d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhaSUyMHJvYm90fGVufDB8fHx8MTc2MjA1OTU3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ai robot"
+    },
+    {
+      "id": "news-3",
+      "description": "Cyber security concept with a padlock",
+      "imageUrl": "https://images.unsplash.com/photo-1632910138458-5bf601f3835e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjeWJlciUyMHNlY3VyaXR5fGVufDB8fHx8MTc2MjA1MDgxMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cyber security"
+    },
+    {
+      "id": "news-4",
+      "description": "Virtual reality headset in use",
+      "imageUrl": "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx2aXJ0dWFsJTIwcmVhbGl0eXxlbnwwfHx8fDE3NjIwNzMwMDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "virtual reality"
+    },
+    {
+      "id": "news-5",
+      "description": "Cloud computing network diagram",
+      "imageUrl": "https://images.unsplash.com/photo-1690627931320-16ac56eb2588?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjbG91ZCUyMGNvbXB1dGluZ3xlbnwwfHx8fDE3NjE5ODkzODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cloud computing"
+    },
+    {
+      "id": "news-6",
+      "description": "Doctor looking at a tablet",
+      "imageUrl": "https://images.unsplash.com/photo-1600091474842-83bb9c05a723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkb2N0b3IlMjB0YWJsZXR8ZW58MHx8fHwxNzYyMTAzNzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "doctor tablet"
+    }
+  ]
 }
